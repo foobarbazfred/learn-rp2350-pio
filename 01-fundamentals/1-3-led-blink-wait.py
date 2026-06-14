@@ -15,13 +15,13 @@ led_pin = Pin(LED_GPIO, Pin.OUT)
 @rp2.asm_pio(set_init=rp2.PIO.OUT_LOW)
 def sm_inst_blink_w_wait():
     set(pins, 1)             # PIN1 <- 1
-    mov(x,y)                 # x <- y (0x0300)
+    mov(x, y)                 # x <- y (0x0300)
     label('wait_loop_0')
-    jmp(x_dec,'wait_loop_0') # while x--
+    jmp(x_dec, 'wait_loop_0') # while x--
     set(pins, 0)             # PIN1 <- 0
-    mov(x,y)                 # x <- y (0x0300)
+    mov(x, y)                 # x <- y (0x0300)
     label('wait_loop_1')
-    jmp(x_dec,'wait_loop_1') # while x--
+    jmp(x_dec, 'wait_loop_1') # while x--
 
 sm_0 = rp2.StateMachine(STATE_MACHINE_ID, sm_inst_blink_w_wait, freq=2_000, set_base=led_pin)
 
