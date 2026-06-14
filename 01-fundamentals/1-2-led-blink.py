@@ -11,8 +11,6 @@ from machine import Pin
 import rp2
 
 LED_GPIO = 1
-
-
 led_pin = Pin(LED_GPIO, Pin.OUT)
 
 @rp2.asm_pio(set_init=rp2.PIO.OUT_LOW)
@@ -35,6 +33,14 @@ sm0.active(1)
 #
 
 
-
+# you can execute specified instructions (by hands)
 # sm0.exec("set(pins,1)")
 # sm0.exec("set(pins,0)")
+
+# wright
+#@rp2.asm_pio(set_init=rp2.PIO.OUT_LOW)     # <<< OK!!
+#def sm_inst_blink():
+#
+# miss!!!
+#@rp2.asm_pio()
+#def sm_inst_blink(set_init=rp2.PIO.OUT_LOW):  # <<< NO!!
