@@ -1,6 +1,10 @@
 #
-# test program blink with wait loop
+# test program blink LED with wait loop
 #
+# program ID:  1-3
+# LED Blink without wait
+#
+
 
 import machine
 from machine import Pin
