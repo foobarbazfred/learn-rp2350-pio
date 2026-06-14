@@ -5,9 +5,7 @@
 # sample program ID:  1-1
 
 #
-
 import machine
-from machine import Pin
 import rp2
 
 @rp2.asm_pio()
