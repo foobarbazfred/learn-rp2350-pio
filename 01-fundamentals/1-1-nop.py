@@ -13,6 +13,7 @@ import rp2
 @rp2.asm_pio()
 def sm_inst_nop():
     nop()
+#    nop()
 
 STATE_MACHINE_ID=0
 
