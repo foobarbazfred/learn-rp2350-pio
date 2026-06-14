@@ -11,20 +11,25 @@ import machine
 from machine import Pin
 import rp2
 
-
 STATE_MACHINE_ID = 11   # max SM Number in RP2040 
 machine.freq(125_000_000)  # set 125MHz to same RP2040
-
-def intr_handler(sm):
-    micropython.schedule(pio_trace, sm)
-
 
 from machine import mem16
 PIO0_BASE = 0x50_200_000
 SM0_INSTR = 0x0d8
 SM0_ADDR = 0x0d4
 
+
+def intr_handler(sm):
+    micropython.schedule(pio_trace, sm)
+
+prev_pc = None
+skip_same_pc = False
+
 def pio_trace(sm):
+
+    global prev_pc
+    global skip_same_pc
 
     sm0_ctrl_addr = PIO0_BASE  + 0
     sm0_pc_addr = PIO0_BASE  + SM0_ADDR
@@ -32,10 +37,15 @@ def pio_trace(sm):
 
     pc = mem16[sm0_pc_addr]
     inst = mem16[sm0_instr_addr]
+
+    if skip_same_pc and (prev_pc == pc):
+          return
     if mem16[sm0_ctrl_addr] & 0x01 :
         print(f'PC: {pc:02d}, INST: {inst:04x} (RUN)')
     else:
         print(f'PC: {pc:02d}, INST: {inst:04x} (STOPPED)')
+    prev_pc = pc
+
 
 @rp2.asm_pio()
 def sm_inst_periodic_irq():
@@ -57,7 +67,9 @@ def start_trace(auto_stop=True):
         print('trace is stopped')
 
 
-start_trace()
+#start_trace()
+skip_same_pc = True
+start_trace(sm_11)
 #
 #
 #
