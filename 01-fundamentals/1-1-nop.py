@@ -2,7 +2,7 @@
 #
 # asm_pio .... assemble and make code of PIO program
 # only NOP
-# sample program ID:  1-1
+# program ID:  1-1
 
 #
 import machine
