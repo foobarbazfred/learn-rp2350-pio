@@ -1,10 +1,7 @@
 #
-#
 # asm_pio .... assemble and make code of PIO program
 # LED Blink without wait
 # sample program ID:  1-2
-
-#
 
 import machine
 from machine import Pin
@@ -19,7 +16,6 @@ def sm_inst_blink():
     set(pins, 0)
 
 STATE_MACHINE_ID=0
-
 machine.freq(125_000_000)  # set 125MHz to same RP2040
 
 # create Statemachine and code is nop
