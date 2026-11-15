@@ -40,7 +40,7 @@ while True:
     time.sleep(1)
     sm0.active(0)
     time.sleep(1)
-    print('state of gpio', led.pin.value())
+    print('state of gpio', led_pin.value())
     print('state of sm0', sm0.active())
     # run sm1 for off and stop
     print('sm1 to active, led off')
@@ -48,5 +48,5 @@ while True:
     time.sleep(1)
     sm1.active(0)
     time.sleep(1)
-    print('state of gpio', led.pin.value())
+    print('state of gpio', led_pin.value())
     print('state of sm1', sm1.active())
