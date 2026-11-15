@@ -20,7 +20,7 @@ STATE_MACHINE_ID=0
 machine.freq(125_000_000)  # set 125MHz to same RP2040
 
 # create Statemachine and code is nop
-sm0 = rp2.StateMachine(STATE_MACHINE_ID, sm_inst_blink, in_base=sw_pin, out_base=led_pin, freq=2000)
+sm0 = rp2.StateMachine(STATE_MACHINE_ID, sm_inst_led_on_by_sw, in_base=sw_pin, out_base=led_pin, freq=2000)
 
 # start StateMachine
 sm0.active(1)
