@@ -53,7 +53,7 @@ nop()
 jmp(y_dec, wait_loop_y)
 jmp(x_dec, wait_loop_x)
 ```
-ソースコードを見直すと、２重ループを実現するために`jmp(x_dec, wait_loop_x)`が増えており、このコードが32回実行されます。よって、1040 + 0.5 * 32より、1056msecの待ちが作り出されます。また、先頭にXレジスタにカウンタ値を設定するset命令`set(x, 0x1f)`がありますので１命令追加され、 1040 * 0.5 * 32 + 0.5で、1056.5msecの待ちになります。
+ソースコードを見直すと、２重ループを実現するために`jmp(x_dec, wait_loop_x)`が増えており、このコードが32回実行されます。よって、1040 + 0.5 * 32より、1056msecの待ちが作り出されます。また、先頭にXレジスタにカウンタ値を設定するset命令`set(x, 0x1f)`がありますので１命令追加され、 1040ms + 0.5ms * 32 + 0.5ms により、1056.5msecの待ちになります。
 
 ### 参考資料
 - SET命令説明 https://github.com/foobarbazfred/micropython/blob/main/rp2350_pio/instruction_ja.md#setdest-data
