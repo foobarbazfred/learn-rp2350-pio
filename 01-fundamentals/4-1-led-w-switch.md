@@ -22,6 +22,14 @@ def sm_inst_led_on_by_sw():
     mov(pins, x)          # read from RegisterX and write to GPIO(LED) 1bit
 ```
 MOVE命令でXの値をGPIO Pinsに出力します。この時、デコレータでout_init=rp2.PIO.OUT_LOWと宣言することで、MOVE命令による出力時のbit数は1bitで、初期値はLOWであるとアセンブラに伝えます。(デコレータのout_initの記述で出力時のbit幅が決まるのかはソース等で確認必要)
+スイッチの設定はGPIOでPULL UP指定して、スイッチが押された時はGNDに接続される仕様でテストしています。このスイッチの場合、スイッチが押されていない時はGPIOの値がHで、スイッチが押された時はGPIOがLになります。この結果、LEDの点灯はスイッチ操作と逆になります。
+このような場合、mov命令のオプションである、反転モードが使えます
+```
+@rp2.asm_pio(out_init=rp2.PIO.OUT_LOW)
+def sm_inst_led_on_by_sw():
+    mov(x, pins)          # read GPIO (sw) value and write to Register X
+    mov(pins, ~x)          # read from RegisterX and write to GPIO(LED) 1bit
+```
 
 ### プログラムの説明
 - 本プログラムではLEDを点滅させます。どのPinを使うのか指定する必要があります。11行目において、Pin(1,Pin.OUT)関数により、LEDを点滅させるためのPinをGP01として初期化しています。
