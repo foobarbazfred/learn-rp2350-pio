@@ -16,9 +16,12 @@
 ### ポーリング方式
 GPIOの状態変化は考慮せず、MOVE命令によりGPIO Pinから値を読み、一旦Xレジスタに書きこみ、Xレジスタの値をPinに出力する。プルダウン型のボタンで押された時にHになる仕様の場合、離されている間はLが続きボタンが押された時GPIOの値がHになります。常時GPIOの状態をLEDが接続されたPinに出力することで、ボタンの状態をLEDに反映させることができます。
 ```
-mov(pins,x)
-mov(x,pins)
+@rp2.asm_pio(out_init=rp2.PIO.OUT_LOW)
+def sm_inst_led_on_by_sw():
+    mov(x, pins)          # read GPIO (sw) value and write to Register X
+    mov(pins, x)          # read from RegisterX and write to GPIO(LED) 1bit
 ```
+MOVE命令でXの値をGPIO Pinsに出力します。この時、デコレータでout_init=rp2.PIO.OUT_LOWと宣言することで、MOVE命令による出力時のbit数は1bitで、初期値はLOWであるとアセンブラに伝えます。
 
 ### プログラムの説明
 - 本プログラムではLEDを点滅させます。どのPinを使うのか指定する必要があります。11行目において、Pin(1,Pin.OUT)関数により、LEDを点滅させるためのPinをGP01として初期化しています。
