@@ -4,3 +4,8 @@ OSRからビット単位でシフトしながらGPIO Pinに特定ビット単位
 
 <img src="assets/fig_out_data_via_fifo_osr.png" width=70%>
 
+- MicroPython側からは、StateMachine.put（）コマンドを使ってTX FIFOに値を書き込みます。TX FIFOは#段のFIFOとなっています。
+- PIO側では以下の処理を行います
+  - TX FIFOからデータを読み込みOSRに書き込みます
+  - OSRから指定されたbit幅分シフトして指定されたGPIO Pinに書き込みます
+  - この処理を必要回数行います。例えば、8bitシリアルデータの場合、1bitシフトを8回行います 
