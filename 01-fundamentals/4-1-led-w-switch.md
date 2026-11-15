@@ -46,6 +46,12 @@ def sm_inst_led_on_by_sw():
 ### 状態変化監視方式
 WAIT命令を使って、GPIOの状態が変化するまで待つ、状態変化後、SET命令を使ってLEDのPinを操作
 ```
+@rp2.asm_pio(set_init=rp2.PIO.OUT_LOW)
+def sm_inst_led_on_by_sw():
+    wait(0, pin, 0)       # wait until pins[0] to L (PUSHED)
+    set(pins, 1)          # LED ON
+    wait(1, pin, 0)       # wait until pins[0] to H (RELEASED)
+    set(pins, 0)          # LED OFF
 ```
 
 ソースコード：[4-2-led-w-sw-wait.py](src/4-2-led-w-sw-wait.py)
