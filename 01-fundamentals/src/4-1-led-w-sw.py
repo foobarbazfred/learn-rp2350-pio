@@ -1,6 +1,7 @@
 #
 # LED Turn On by Switch
 # sample program ID:  4-1
+# promrem : inverted light
 
 import machine
 from machine import Pin
@@ -11,10 +12,10 @@ sw_pin = Pin(SW_GPIO, Pin.IN, Pin.PULL_DOWN)
 LED_GPIO = 1
 led_pin = Pin(LED_GPIO, Pin.OUT)
 
-@rp2.asm_pio(set_init=rp2.PIO.OUT_LOW)
+@rp2.asm_pio(out_init=rp2.PIO.OUT_LOW)
 def sm_inst_led_on_by_sw():
-    mov(x, pins)
-    mov(pins, x)
+    mov(x, pins)          # read GPIO (sw) value and write to Register X
+    mov(pins, x)          # read from RegisterX and write to GPIO(LED) 1bit
 
 STATE_MACHINE_ID=0
 machine.freq(125_000_000)  # set 125MHz to same RP2040
