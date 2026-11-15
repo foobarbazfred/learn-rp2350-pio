@@ -8,7 +8,7 @@ from machine import Pin
 import rp2
 
 SW_GPIO = 0
-sw_pin = Pin(SW_GPIO, Pin.IN, Pin.PULL_DOWN)
+sw_pin = Pin(SW_GPIO, Pin.IN, Pin.PULL_UP)
 LED_GPIO = 1
 led_pin = Pin(LED_GPIO, Pin.OUT)
 
