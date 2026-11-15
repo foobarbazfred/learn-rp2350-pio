@@ -37,12 +37,16 @@ while True:
     # run sm0 for on and stop
     print('sm0 to active, led on')
     sm0.active(1)
+    time.sleep(1)
     sm0.active(0)
     time.sleep(1)
+    print('state of gpio', led.pin.value())
     print('state of sm0', sm0.active())
     # run sm1 for off and stop
     print('sm1 to active, led off')
     sm1.active(1)
-    sm1.active(0)
-    print('state of sm1', sm1.active())
     time.sleep(1)
+    sm1.active(0)
+    time.sleep(1)
+    print('state of gpio', led.pin.value())
+    print('state of sm1', sm1.active())
